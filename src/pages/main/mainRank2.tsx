@@ -40,7 +40,7 @@ export default function MainRank2() {
   ];
 
   return (
-    <div className=" w-full  flex-col flex h-fit px-10 bg-white py-24">
+    <div className=" w-full  flex-col flex h-fit px-20 bg-white py-24">
       <div className="flex  items-start justify-start flex-col gap-2 mb-5">
         <div className="text-xl flex flex-row items-center justify-between w-full font-semibold text-slate-400">
           <div className="text-slate-700 font-bold text-4xl mb-6">

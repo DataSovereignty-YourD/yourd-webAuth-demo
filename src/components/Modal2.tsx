@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import { useRecoilValue } from 'recoil';
 import { nftDetailsState } from '../state/nftState';
 import { IoMdClose } from 'react-icons/io';
+import { WebSocketMessage, websocketState } from '../state/websocketState';
+import parseWebSocketMessage from '../functions/parseMessage';
 
 interface Modal2Props {
   isOpen: boolean;
@@ -31,9 +33,43 @@ const SpringModal: React.FC<Modal2Props> = ({
   selectedNftId,
 }) => {
   const nftDetails = useRecoilValue(nftDetailsState);
+  const websocket = useRecoilValue(websocketState).connection;
   const selectedNft = selectedNftId
     ? nftDetails.find((nft) => nft.id === selectedNftId)
     : null;
+
+    useEffect(() => {
+      if (!websocket) return;
+  
+      const handleMessage = (event:any) => {
+        const data = event.data;
+        
+        try {
+          console.log(data);
+          const message = parseWebSocketMessage(String(data));
+          console.log(message);
+          // params가 예상한 형식인지 확인하고, 맞다면 로직 수행
+          if (message && !String(message).startsWith("Connected")) {
+            const hash = message.opHash;
+            if(hash) return setIsOpen(false);
+            console.log("Received hash:", hash);
+          }
+        } catch (error) {
+          console.error('Error in processing received message:', error);
+        }
+  
+        // 필요한 추가 처리
+        
+      };
+  
+      websocket.addEventListener('message', handleMessage);
+  
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        websocket.removeEventListener('message', handleMessage);
+      };
+    }, [websocket]);
+  
 
   return (
     <AnimatePresence>
@@ -83,6 +119,8 @@ const SpringModal: React.FC<Modal2Props> = ({
                 </div>
               )}
             </div>
+            <div className='text-gray400 font-semibold'>Go to yourd YourD Pass</div>
+            <div className='text-gray400 font-semibold'>You'll be asked to approve this purchase from yourd pass</div>
           </motion.div>
         </motion.div>
       )}

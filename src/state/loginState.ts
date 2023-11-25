@@ -3,6 +3,7 @@ import { atom, selector } from "recoil";
 export type loginType = {
   state: boolean,
   did:string
+  access_token:string;
 }
 
 export const loginState = atom<loginType>({
@@ -10,6 +11,7 @@ export const loginState = atom<loginType>({
   default: {
     state:false,
     did:'',
+    access_token:'',
   },
 });
 

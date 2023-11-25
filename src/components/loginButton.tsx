@@ -1,5 +1,6 @@
 import { IoWalletOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface LoginButtonProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,6 +8,10 @@ interface LoginButtonProps {
 
 export default function LoginButton({ setIsOpen }: LoginButtonProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+
+  console.log(location.pathname)
+  const isLocationDetail = location.pathname.startsWith("/detail");
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     // window 스크롤 위치가 0보다 크면 true, 아니면 false
@@ -31,16 +36,16 @@ export default function LoginButton({ setIsOpen }: LoginButtonProps) {
     <button
       onClick={handleClick}
       className={`${
-        isScrolled ? 'bg-[#9caab29d]' : 'bg-transparent'
-      } w-[105px] h-[42px] rounded-xl bg-opacity-25 hover:bg-[#7c878d9d]`}
+        isScrolled&&!isLocationDetail ? 'bg-[#9caab29d]' : 'bg-transparent'
+      } w-fit h-[42px] rounded-xl px-4 bg-opacity-25 hover:bg-[#7c878d9d]`}
     >
       <div
         className={`${
-          isScrolled ? 'text-black' : 'text-white'
-        } flex items-center justify-around text-xl font-bold`}
+          isScrolled || isLocationDetail ? 'text-black' : 'text-white'
+        } flex items-center gap-4 justify-around text-xl font-bold`}
       >
-        <IoWalletOutline />
-        Auth
+        {/* <IoWalletOutline /> */}
+        Connect
       </div>
     </button>
   );
