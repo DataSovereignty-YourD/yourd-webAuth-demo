@@ -1,7 +1,7 @@
 // WebSocketInitializer.tsx
 import React from 'react';
 
-import useGlobalWebSocket from '../hook/useGlobalWebSocket';
+import useGlobalWebSocket from '../hooks/useGlobalWebSocket';
 // import {network} from '../api';
 
 const WebSocketInitializer = () => {

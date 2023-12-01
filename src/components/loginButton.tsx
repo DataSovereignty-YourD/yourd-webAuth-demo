@@ -10,8 +10,8 @@ export default function LoginButton({ setIsOpen }: LoginButtonProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  console.log(location.pathname)
-  const isLocationDetail = location.pathname.startsWith("/detail");
+  console.log(location.pathname);
+  const isLocationDetail = location.pathname.startsWith('/detail');
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     // window 스크롤 위치가 0보다 크면 true, 아니면 false
@@ -35,18 +35,9 @@ export default function LoginButton({ setIsOpen }: LoginButtonProps) {
   return (
     <button
       onClick={handleClick}
-      className={`${
-        isScrolled&&!isLocationDetail ? 'bg-[#9caab29d]' : 'bg-transparent'
-      } w-fit h-[42px] rounded-xl px-4 bg-opacity-25 hover:bg-[#7c878d9d]`}
+      className="w-[200px] h-[32px] rounded-xl px-4  bg-yellow-400 hover:bg-yellow-600 "
     >
-      <div
-        className={`${
-          isScrolled || isLocationDetail ? 'text-black' : 'text-white'
-        } flex items-center gap-4 justify-around text-xl font-bold`}
-      >
-        {/* <IoWalletOutline /> */}
-        Connect
-      </div>
+     <span className='font-semibold text-sm'> Sign In / Sign Up</span>
     </button>
   );
 }
