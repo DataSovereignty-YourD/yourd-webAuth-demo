@@ -1,0 +1,43 @@
+ <!-- <div
+        className="relative hover:bg-gray-200 cursor-pointer"
+        onMouseEnter={() => setShowModal(true)}
+        onMouseLeave={() => setShowModal(false)}
+      >
+        <div className="flex items-center">
+          <BsPersonFill size={36} />
+          <div>
+            <div>Hello, {isLogin.state ? 'User' : 'Sign In'}</div>
+          </div>
+        </div>
+        {showModal && (
+          <div className="absolute bg-white border w-[400px] h-[300px] z-30 transform -translate-x-28">
+            {!isLogin.state ? (
+              <div className="p-4">
+                <p>로그인 해주세요</p>
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  로그인
+                </button> 
+                {isOpen && (
+                  <Login
+                    initialOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                  />
+                )}
+              </div>
+            ) : (
+              <div className="p-4">
+                <p>환영합니다, 사용자님!</p>
+                <button
+                  onClick={closeConnection}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  로그아웃
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div> -->
