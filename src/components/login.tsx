@@ -232,7 +232,7 @@ const SpringModal: React.FC<{
                     YourD Pass로 시작하기    ====== 일단은 주석처리 해둔 부분 ***지우지 말것
                   </button> */}
                 <button
-                  className="flex w-5/6 items-center justify-center text-center gap-10 rounded-full bg-yellow-400 mb-24 text-md font-medium text-black transition-colors hover:bg-yellow-300"
+                  className="flex w-5/6 items-center justify-center text-center gap-4 rounded-full bg-yellow-400 mb-12 text-md font-medium text-black transition-colors hover:bg-yellow-300"
                   onClick={handleLogin} // onClick 이벤트에 handleLoginSuccess 함수 연결
                 >
                   <img
