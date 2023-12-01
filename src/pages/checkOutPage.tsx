@@ -4,10 +4,12 @@ import { Transition } from '@headlessui/react';
 import Visa from '../assets/img/visa.png';
 import PayPal from '../assets/img/paypal.png';
 import MasterCard from '../assets/img/mastercard.png';
-import CryptoPay from '../assets/img/cryptoPay.png';
+import CryptoPay from '../assets/img/cpay.png';
 import { loginState } from '../state/loginState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { websocketState } from '../state/websocketState';
+import Modal2 from '../components/Modal2';
+
 export default function CheckOutPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +18,7 @@ export default function CheckOutPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const websocket = useRecoilValue(websocketState).connection;
+    
   const handleBuyNow = () => {
     if (!isLoggedIn) {
       // 로그인이 안 되어 있으면 로그인 모달을 표시
@@ -318,7 +321,7 @@ export default function CheckOutPage() {
               </div>
 
               <div>
-                <h2 className="text-lg font-semibold mb-2">Payment plans</h2>
+                <h2 className="text-lg font-semibold mb-2">Payment Method</h2>
                 <div className="flex items-center">
                   <input
                     type="radio"
@@ -366,7 +369,11 @@ export default function CheckOutPage() {
                     htmlFor="paymentPlan"
                     className="ml-2 text-sm font-medium text-gray-700 flex items-center"
                   >
-                    <img src={CryptoPay} alt="crypto" className="w-12 h-12" />
+                    <img
+                      src={CryptoPay}
+                      alt="crypto"
+                      className="w-14 h-14 mt-[26px]"
+                    />
                   </label>
                 </div>
               </div>
@@ -414,8 +421,8 @@ export default function CheckOutPage() {
               </div>
             </div>
 
-            {/* Submit button */}
             <div className="mt-8">
+              <Modal2 isOpen={isOpen} setIsOpen={setIsOpen} />
               <button
                 onClick={handleBuyNow}
                 className="w-full bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition duration-200 ease-in-out"
@@ -426,48 +433,7 @@ export default function CheckOutPage() {
           </div>
         )}
 
-        {/* 주문 요약 섹션 */}
-        <div className="md:w-1/3 bg-gray-100 p-4 rounded-md shadow">
-          <div className="mb-6">
-            <button className="bg-yellow-300 text-black py-2 px-4 rounded hover:bg-yellow-400 w-full">
-              Use this address
-            </button>
-            <p className="text-sm text-gray-600 mt-2">
-              Choose a shipping address to continue checking out. You'll still
-              have a chance to review and edit your order before it's final.
-            </p>
-          </div>
-
-          <div className="border-t pt-4">
-            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-            <div className="flex justify-between mb-2">
-              <span>Items:</span>
-              <span>--</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span>Shipping & handling:</span>
-              <span>--</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span>Total before tax:</span>
-              <span>--</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span>Estimated tax to be collected:</span>
-              <span>--</span>
-            </div>
-            <div className="flex justify-between mt-4">
-              <span className="text-lg font-bold">Order total:</span>
-              <span className="text-lg font-bold text-red-600">
-                ${orderTotal}
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-6 text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
-            How are shipping costs calculated?
-          </div>
-        </div>
+       
       </div>
     </div>
   );
