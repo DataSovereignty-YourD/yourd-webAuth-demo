@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { nftDetailsState } from '../state/nftState';
 import { IoMdClose } from 'react-icons/io';
 import { WebSocketMessage, websocketState } from '../state/websocketState';
 import parseWebSocketMessage from '../functions/parseMessage';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { paymentModalState } from '../state/paymentModalState';
 interface Modal2Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +22,7 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
   const websocket = useRecoilValue(websocketState).connection;
   const navigate = useNavigate();
   const location = useLocation();
+  const [modal, setModal] = useRecoilState(paymentModalState);
   useEffect(() => {
     if (!websocket) return;
 
@@ -34,7 +36,10 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
         // params가 예상한 형식인지 확인하고, 맞다면 로직 수행
         if (message && !String(message).startsWith('Connected')) {
           const hash = message.opHash;
-          if (hash) return setIsOpen(false);
+          if (hash) {
+            setModal(true);
+            return setIsOpen(false);
+          }
           console.log('Received hash:', hash);
         }
       } catch (error) {
@@ -51,6 +56,32 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
       websocket.removeEventListener('message', handleMessage);
     };
   }, [websocket]);
+
+  const reSend=()=> {
+    const message = {
+      type: 'sendMessage',
+      clientType: 'Service',
+      sessionId: 'asdfasdf',
+      msg: {
+        to: 'KT1Hj4q5qBR49oWw4fpkynLd7qW9TNUfvL87',
+        amount: '0',
+        mutez: false,
+        parameter: {
+          entrypoint: 'double',
+          value: {
+            prim: 'Unit',
+          },
+        },
+      },
+    };
+
+    // 웹소켓 통신 로직 실행
+    console.log(message);
+    if (websocket && websocket.readyState === WebSocket.OPEN) {
+      websocket.send(JSON.stringify(message));
+    }
+  }
+
   const orderTotal = location.state?.orderTotal || '0.00';
 
   return (
@@ -78,7 +109,7 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
               </div>
               <div className="w-full bg-gray-100 p-4 rounded-md shadow">
                 <div className="mb-6">
-                  <button className="bg-yellow-300 text-black py-2 px-4 rounded hover:bg-yellow-400 w-full">
+                  <button onClick={reSend} className="bg-yellow-300 text-black py-2 px-4 rounded hover:bg-yellow-400 w-full">
                     Reconnect
                   </button>
                   <p className="text-sm text-gray-600 mt-2">

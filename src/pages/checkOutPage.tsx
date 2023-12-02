@@ -9,11 +9,12 @@ import { loginState } from '../state/loginState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { websocketState } from '../state/websocketState';
 import Modal2 from '../components/Modal2';
+import { paymentModalState } from '../state/paymentModalState';
 
 export default function CheckOutPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useRecoilState(paymentModalState);
   const [isOpen, setIsOpen] = useState(false); // 구매 확인 모달 상태
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
