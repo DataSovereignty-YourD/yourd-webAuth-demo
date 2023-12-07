@@ -24,7 +24,8 @@ function RedirectPage() {
       console.error("Authorization code not found");
       return;
     }
-
+    console.log(receivedState)
+    console.log(savedState)
     // 수신된 state와 저장된 state 비교
     if (receivedState !== savedState) {
       console.error("Invalid state value");
@@ -32,7 +33,7 @@ function RedirectPage() {
     }
 
     // token 엔드포인트에 요청을 보내 액세스 토큰 얻기
-    fetch("http://localhost:8001/api/oauth/token", {
+    fetch("http://api.yourd.com/api/oauth/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

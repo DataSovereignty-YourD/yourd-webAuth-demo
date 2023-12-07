@@ -17,7 +17,7 @@ export default function MainHero() {
   return (
     <div className="w-full min-h-screen px-10 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-[#243a459d] via-white to-[#243a459d] ">
-        <img src={Site} alt="site" className="" />
+        <img src={Site} alt="site" className="blur-[1px]" />
       </div>
       <div className="relative z-10 grid grid-cols-4 gap-8 pt-80">
         <div className="bg-yellow-50 w-[352px] h-[422px]">

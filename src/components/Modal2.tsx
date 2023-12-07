@@ -23,8 +23,18 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [modal, setModal] = useRecoilState(paymentModalState);
+
+  // useEffect(()=>{
+  //   setTimeout(() => {
+  //     setIsOpen(false);
+  //     setModal({isVisible:true,hash:''});
+  //   }, 12000);
+  // },[])
+
   useEffect(() => {
     if (!websocket) return;
+
+   
 
     const handleMessage = (event: any) => {
       const data = event.data;
@@ -37,7 +47,7 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
         if (message && !String(message).startsWith('Connected')) {
           const hash = message.opHash;
           if (hash) {
-            setModal(true);
+            setModal({isVisible:true,hash:hash});
             return setIsOpen(false);
           }
           console.log('Received hash:', hash);
@@ -64,7 +74,7 @@ const SpringModal: React.FC<Modal2Props> = ({ isOpen, setIsOpen }) => {
       sessionId: 'asdfasdf',
       msg: {
         to: 'KT1Hj4q5qBR49oWw4fpkynLd7qW9TNUfvL87',
-        amount: '0',
+        amount: '45.99',
         mutez: false,
         parameter: {
           entrypoint: 'double',

@@ -9,7 +9,7 @@ export type loginType = {
 export const loginState = atom<loginType>({
   key: "loginState",
   default: {
-    state:true,
+    state:false,
     did:'',
     access_token:'',
   },

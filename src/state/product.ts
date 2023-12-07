@@ -33,7 +33,7 @@ const initialProducts: ProductDetails[] = [
     { id: '6', src: d6, alt: 'd6', title: 'Example6',rate:'-20%',  nowPrice: '127.98',listPrice:'159.99', isFavorited: false  },
     { id: '7', src: d7, alt: 'd7', title: 'Example7',rate:'-62%',  nowPrice: '229.99',listPrice:'599.99', isFavorited: false  },
     { id: '8', src: d8, alt: 'd8', title: 'Example8', rate:'-42%', nowPrice: '199.99',listPrice:'349.99', isFavorited: false  },
-    { id: '9', src: d9, alt: 'd9', title: 'Example9',rate:'-28%',  nowPrice: '84.99',listPrice:'119.00', isFavorited: false  },
+    { id: '9', src: d9, alt: 'd9', title: 'Example9',rate:'-62%',  nowPrice: '45.99',listPrice:'110.00', isFavorited: false  },
     { id: '10', src: d10, alt: 'd10', title: 'Example10',rate:'-38%',  nowPrice: '399.99',listPrice:'649.99', isFavorited: false  },
     { id: '11', src: d11, alt: 'd11', title: 'Example11',rate:'-17%',  nowPrice: '239.99',listPrice:'289.99', isFavorited: false  },
     { id: '12', src: d12, alt: 'd12', title: 'Example12', rate:'-21%', nowPrice: '74.99',listPrice:'94.99', isFavorited: false  },

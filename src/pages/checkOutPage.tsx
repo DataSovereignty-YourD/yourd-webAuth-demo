@@ -4,17 +4,17 @@ import { Transition } from '@headlessui/react';
 import Visa from '../assets/img/visa.png';
 import PayPal from '../assets/img/paypal.png';
 import MasterCard from '../assets/img/mastercard.png';
-import CryptoPay from '../assets/img/cpay.png';
+// import CryptoPay from '../assets/img/yourdpassbutton.png';
 import { loginState } from '../state/loginState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { websocketState } from '../state/websocketState';
 import Modal2 from '../components/Modal2';
-import { paymentModalState } from '../state/paymentModalState';
+import { TransactionSuccessModal } from '../components/transactionModal';
 
 export default function CheckOutPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [modal, setModal] = useRecoilState(paymentModalState);
+  
   const [isOpen, setIsOpen] = useState(false); // 구매 확인 모달 상태
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -34,7 +34,7 @@ export default function CheckOutPage() {
         sessionId: 'asdfasdf',
         msg: {
           to: 'KT1Hj4q5qBR49oWw4fpkynLd7qW9TNUfvL87',
-          amount: '0',
+          amount: '45.99',
           mutez: false,
           parameter: {
             entrypoint: 'double',
@@ -109,33 +109,7 @@ export default function CheckOutPage() {
 
   return (
     <div className="mx-auto mt-10 p-6 max-w-7xl">
-      {modal && (
-        <div className="w-3/6 bg-white absolute top-[20%] drop-shadow-lg h-3/5 rounded-2xl flex flex-col justify-center items-center">
-          <img
-            src={require('../assets/img/yellowcheck.png')}
-            className="w-32 h-32 mb-10 animate-bounce"
-          />
-          <div className="text-4xl font-bold mb-14">Successfully Compelete</div>
-          <div className="flex gap-10">
-            <button
-              onClick={() => setModal(false)}
-              className="bg-white font-medium px-20 py-3 border border-gray200 rounded-full"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => {
-                setModal(false);
-                window.location.href =
-                  'https://ghostnet.tzkt.io/KT1Hj4q5qBR49oWw4fpkynLd7qW9TNUfvL87/operations/';
-              }}
-              className="bg-[#fccc00] font-semibold px-20 py-3 border border-gray200 rounded-full"
-            >
-              See Transactions
-            </button>
-          </div>
-        </div>
-      )}
+      <TransactionSuccessModal />
       <div className="flex flex-col md:flex-row justify-between gap-10">
         {currentStep === 1 && (
           <div className="flex-1 shadow-xl bg-slate-100">
@@ -279,7 +253,7 @@ export default function CheckOutPage() {
           </div>
         )}
         {currentStep === 2 && (
-          <div className="flex-1 shadow-xl bg-white p-6">
+          <div className="flex-1 shadow-xl bg-white p-6 mt-5">
             <h1 className="text-2xl font-bold mb-4">Choose a Payment Method</h1>
 
             {/* Discount offer */}
@@ -289,11 +263,11 @@ export default function CheckOutPage() {
                   Pay &nbsp;
                   <span className="text-lg font-bold text-red-600 ">
                     ${orderTotal}
-                  </span>{' '}
-                  &nbsp; for this order with a{' '}
+                  </span>{" "}
+                  &nbsp; for this order with a{" "}
                   <span className="text-blue-700 cursor-pointer hover:text-blue-900">
-                    $60 NFT Gift Card{' '}
-                  </span>{' '}
+                    $60 NFT Gift Card{" "}
+                  </span>{" "}
                   instantly upon approval for Amazon Visa.
                 </p>
                 <a href="#" className="text-blue-800 text-sm hover:underline">
@@ -323,63 +297,73 @@ export default function CheckOutPage() {
 
               <div>
                 <h2 className="text-lg font-semibold mb-2">Payment Method</h2>
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    id="paymentPlan"
-                    className="h-4 w-4 text-blue-600"
-                  />
-                  <label
-                    htmlFor="paymentPlan"
-                    className="ml-2 text-sm font-medium text-gray-700 flex items-center"
-                  >
-                    <img src={Visa} alt="visa" />
-                  </label>
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    id="paymentPlan"
-                    className="h-4 w-4 text-blue-600"
-                  />
-                  <label
-                    htmlFor="paymentPlan"
-                    className="ml-2 text-sm font-medium text-gray-700 flex items-center"
-                  >
-                    <img src={PayPal} alt="paypal" className="w-8 h-8" />
-                  </label>
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    id="paymentPlan"
-                    className="h-4 w-4 text-blue-600"
-                  />
-                  <label
-                    htmlFor="paymentPlan"
-                    className="ml-2 text-sm font-medium text-gray-700 flex items-center"
-                  >
-                    <img src={MasterCard} alt="visa" />
-                  </label>
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    id="paymentPlan"
-                    className="h-4 w-4 text-blue-600"
-                  />
-                  <label
-                    htmlFor="paymentPlan"
-                    className="ml-2 text-sm font-medium text-gray-700 flex items-center"
-                  >
-                    <img
-                      src={CryptoPay}
-                      alt="crypto"
-                      className="w-14 h-14 mt-[26px]"
-                    />
-                  </label>
+                <div className="flex w-full items-center drop-shadow-md">
+                  <div className='flex bg-white w-1/5 items-center justify-center'>
+                    {/* <input
+                      type="radio"
+                      name="paymentMethod"
+                      id="paymentPlan"
+                      className="h-4 w-4 text-blue-600"
+                    /> */}
+                    <label
+                      htmlFor="paymentPlan"
+                      className="ml-2 text-sm font-medium text-gray-700 flex items-center"
+                    >
+                      <img src={Visa} alt="visa" />
+                    </label>
+                    {/* <input
+                      type="radio"
+                      name="paymentMethod"
+                      id="paymentPlan"
+                      className="h-4 w-4 text-blue-600"
+                    /> */}
+                    <label
+                      htmlFor="paymentPlan"
+                      className="ml-2 text-sm font-medium text-gray-700 flex items-center"
+                    >
+                      <img src={PayPal} alt="paypal" className="w-8 h-8" />
+                    </label>
+                    {/* <input
+                      type="radio"
+                      name="paymentMethod"
+                      id="paymentPlan"
+                      className="h-4 w-4 text-blue-600"
+                    /> */}
+                    <label
+                      htmlFor="paymentPlan"
+                      className="ml-2 text-sm font-medium text-gray-700 flex items-center"
+                    >
+                      <img src={MasterCard} alt="visa" />
+                    </label>
+                    {/* <input
+                      type="radio"
+                      name="paymentMethod"
+                      id="paymentPlan"
+                      className="h-4 w-4 text-blue-600"
+                    /> */}
+                    {/* <label
+                      htmlFor="paymentPlan"
+                      className="ml-2 text-sm font-medium text-gray-700 flex items-center"
+                    >
+                      <img
+                        src={CryptoPay}
+                        alt="crypto"
+                        className="w-14 h-14  object-contain"
+                      />
+                    </label> */}
+                  </div>
                 </div>
               </div>
+              <div className="">
+                <div className="text-lg font-semibold mb-2">
+                  Pay with another payment method
+                </div>
+                
+                  <button onClick={handleBuyNow} className='bg-[#fccc00] active:drop-shadow-none w-1/5 py-2 text-xl font-bold text-center  drop-shadow-md pl-4'>Your<span className=''>D</span> Pay</button>
+                  {/* <img src={require("../assets/img/yourdpassbutton.png")} className="h-14 object-contain" /> */}
+              </div>
 
-              <div>
+              {/* <div>
                 <h2 className="text-lg font-semibold mb-2">
                   Your available balance
                 </h2>
@@ -393,7 +377,7 @@ export default function CheckOutPage() {
                     Apply
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               <div>
                 <h2 className="text-lg font-semibold mb-2">
@@ -424,17 +408,15 @@ export default function CheckOutPage() {
 
             <div className="mt-8">
               <Modal2 isOpen={isOpen} setIsOpen={setIsOpen} />
-              <button
+              {/* <button
                 onClick={handleBuyNow}
                 className="w-full bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition duration-200 ease-in-out"
               >
                 Use this payment method
-              </button>
+              </button> */}
             </div>
           </div>
         )}
-
-       
       </div>
     </div>
   );

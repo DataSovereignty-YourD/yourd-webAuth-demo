@@ -158,9 +158,9 @@ export default function TopBar() {
 
       <button
         onClick={moveToCart}
-        className="relative flex items-center gap-2 bg-opacity-25 rounded-lg hover:bg-[#7c878d9d]"
+        className="relative flex items-end  bg-opacity-25 rounded-lg hover:bg-[#7c878d9d]"
       >
-        <img src={Cart} alt="cart" />
+        <img src={Cart} alt="cart" className='w-10 h-10'/>
         {itemCount > 0 && (
           <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
             {itemCount}
