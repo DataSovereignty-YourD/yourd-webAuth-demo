@@ -76,9 +76,7 @@ export default function TopBar() {
           )}
         </div>
       ) : (
-        <button onClick={closeConnection} className="text-black">
-          Sign Out
-        </button>
+      ''
       )}
       {isLogin.state && (
         <div

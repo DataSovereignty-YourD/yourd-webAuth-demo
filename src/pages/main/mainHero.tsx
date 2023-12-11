@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Site from '../../assets/img/site.png';
+import Site from '../../assets/img/site5.png';
 import P1 from '../../assets/img/p1.png';
 import P2 from '../../assets/img/p2.png';
 import P3 from '../../assets/img/p3.png';
@@ -17,7 +17,7 @@ export default function MainHero() {
   return (
     <div className="w-full min-h-screen px-10 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-[#243a459d] via-white to-[#243a459d] ">
-        <img src={Site} alt="site" className="blur-[1px]" />
+        <img src={Site} alt="site" className="object-contain" />
       </div>
       <div className="relative z-10 grid grid-cols-4 gap-8 pt-80">
         <div className="bg-yellow-50 w-[352px] h-[422px]">
